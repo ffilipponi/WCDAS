@@ -1,4 +1,4 @@
-CDAS
+# WCDAS
 ## Water Color Data Analysis System
 
 The WCDAS is a tool to promote the operational generation of maps and indicators useful in the monitoring of water quality. 

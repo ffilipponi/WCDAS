@@ -1,0 +1,136 @@
+<graph id="RiverColor_C2RCC_IOPs_intermediate">
+  <version>1.0</version>
+  <!-- 
+    <root xmlns:copyright="http://www.w3.org/1999/xhtml">
+      <metadata>
+        <author name="Federico Filipponi" />
+        <author contact="federico.filipponi@isprambiente.it" />
+        <copyright name="CC BY-SA" />
+        <license type="GPL" />
+        <license version="3" />
+      </metadata>
+    </root>
+  -->
+  <!-- usage example: 
+    /opt/snap/bin/gpt RiverColor_C2RCC_IOPs_subset.xml -Pinput=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_20m.dim -Poutput=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_c2rcc.dim -Poutput_chl=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_chl.tif -Poutput_tsm=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_tsm.tif
+  -->
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input}</file>
+    </parameters>
+  </node>
+     <node id="apig_band">
+       <operator>BandMaths</operator>
+       <sources>
+           <sourceProduct refid="Read"/>
+       </sources>
+       <parameters>
+           <targetBands>
+               <targetBand>
+                   <name>apig</name>
+                   <expression>(iop_apig == 0 or Rtosa_OOS or Rtosa_OOR or Rhow_OOR or Cloud_risk or Rhow_OOS or Apig_at_min or Apig_at_max or !(Valid_PE) ? NaN : floor(iop_apig * 100))</expression>
+                   <description>Absorption coefficient of phytoplankton pigments at 443 nm</description>
+                   <type>uint16</type>
+                   <unit>m^-1</unit>
+                   <noDataValue>65535</noDataValue>
+               </targetBand>
+           </targetBands>
+       </parameters>
+     </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="apig_band"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_apig}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="bpart_band">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>bpart</name>
+                <expression>(iop_bpart == 0 or Rtosa_OOS or Rtosa_OOR or Rhow_OOR or Cloud_risk or Rhow_OOS or Bpart_at_min or Bpart_at_max or !(Valid_PE) ? NaN : floor(iop_bpart * 100))</expression>
+                <description>Scattering coefficient of marine paticles at 443 nm</description>
+                <type>uint16</type>
+                <unit>m^-1</unit>
+                <noDataValue>65535</noDataValue>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="bpart_band"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_bpart}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="bwit_band">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>bwit</name>
+                <expression>(iop_bwit == 0 or Rtosa_OOS or Rtosa_OOR or Rhow_OOR or Cloud_risk or Rhow_OOS or Bwit_at_min or Bwit_at_max or !(Valid_PE) ? NaN : floor(iop_bwit * 100))</expression>
+                <description>Scattering coefficient of white particles at 443 nm</description>
+                <type>uint16</type>
+                <unit>m^-1</unit>
+                <noDataValue>65535</noDataValue>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="bwit_band"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_bwit}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="z90_max_band">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>z90_max</name>
+                <expression>(Rtosa_OOS or Rtosa_OOR or Rhow_OOR or Cloud_risk or Rhow_OOS or Kd489_OOR or Kd489_at_max or !(Valid_PE) ? NaN : floor(kd_z90max * 100))</expression>
+                <description>Depth of the water column from which 90% of the water leaving irradiance comes from</description>
+                <type>uint16</type>
+                <unit>m^-1</unit>
+                <noDataValue>65535</noDataValue>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="z90_max_band"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_z90max}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+</graph>

@@ -1,0 +1,354 @@
+<graph id="RiverColor_ACOLITE_S2A_Rrs">
+  <version>1.0</version>
+  <!-- 
+    <root xmlns:copyright="http://www.w3.org/1999/xhtml">
+      <metadata>
+        <author name="Federico Filipponi" />
+        <author contact="federico.filipponi@isprambiente.it" />
+        <copyright name="CC BY-SA" />
+        <license type="GPL" />
+        <license version="3" />
+      </metadata>
+    </root>
+  -->
+  <!-- usage example: 
+    /opt/snap/bin/gpt RiverColor_C2RCC_IOPs_subset.xml -Pinput=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_20m.dim -Poutput=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_c2rcc.dim -Poutput_chl=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_chl.tif -Poutput_tsm=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_tsm.tif
+  -->
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input}</file>
+    </parameters>
+  </node>
+  <node id="B1">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B1</name>
+                <expression>(floor(rhos_443 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>443.0</spectralWavelength>
+                <spectralBandwidth>58.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B1"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b1}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B2">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B2</name>
+                <expression>(floor(rhos_492 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>490.0</spectralWavelength>
+                <spectralBandwidth>130.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B2"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b2}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B3">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B3</name>
+                <expression>(floor(rhos_560 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>560.0</spectralWavelength>
+                <spectralBandwidth>100.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B3"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b3}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B4">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B4</name>
+                <expression>(floor(rhos_665 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>665.0</spectralWavelength>
+                <spectralBandwidth>90.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B4"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b4}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B5">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B5</name>
+                <expression>(floor(rhos_704 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>705.0</spectralWavelength>
+                <spectralBandwidth>97.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B5"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b5}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B6">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B6</name>
+                <expression>(floor(rhos_740 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>740.0</spectralWavelength>
+                <spectralBandwidth>40.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B6"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b6}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B7">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B7</name>
+                <expression>(floor(rhos_783 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>783.0</spectralWavelength>
+                <spectralBandwidth>71.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B7"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b7}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B8">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B8</name>
+                <expression>(floor(rhos_833 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>842.0</spectralWavelength>
+                <spectralBandwidth>175.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B8"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b8}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B8A">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B8A</name>
+                <expression>(floor(rhos_865 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>865.0</spectralWavelength>
+                <spectralBandwidth>79.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B8A"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b8a}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B11">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B11</name>
+                <expression>(floor(rhos_1614 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>1610.0</spectralWavelength>
+                <spectralBandwidth>172.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B11"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b11}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="B12">
+    <operator>BandMaths</operator>
+    <sources>
+        <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+        <targetBands>
+            <targetBand>
+                <name>B12</name>
+                <expression>(floor(rhos_2202 * 10000))</expression>
+                <description>Atmospherically corrected Angular dependent remote sensing reflectances</description>
+                <type>uint16</type>
+                <unit>sr^-1</unit>
+                <noDataValue>65535</noDataValue>
+                <spectralWavelength>2190.0</spectralWavelength>
+                <spectralBandwidth>276.0</spectralBandwidth>
+            </targetBand>
+        </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="B12"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_b12}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+</graph>

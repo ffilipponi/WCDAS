@@ -1,0 +1,80 @@
+<graph id="WaterColor_C2RCC_IOPs_uncertainty">
+  <version>1.0</version>
+  <!-- 
+    <root xmlns:copyright="http://www.w3.org/1999/xhtml">
+      <metadata>
+        <author name="Federico Filipponi" />
+        <author contact="federico.filipponi@isprambiente.it" />
+        <copyright name="CC BY-SA" />
+        <license type="GPL" />
+        <license version="3" />
+      </metadata>
+    </root>
+  -->
+  <!-- usage example: 
+    gpt WaterColor_C2RCC_IOPs_uncertainty.xml -Pinput=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_20m.dim -Poutput=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_c2rcc.dim -Poutput_chl_uncertainty=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_chl_uncertainty.tif -Poutput_tsm_uncertainty=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_tsm_uncertainty.tif
+  -->
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input}</file>
+    </parameters>
+  </node>
+  <node id="CHL_uncertainty">
+    <operator>BandMaths</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+      <targetBands>
+        <targetBand>
+          <name>Chl</name>
+          <expression>(unc_chl == 0 or Rtosa_OOS or Rtosa_OOR or Rhow_OOR or Cloud_risk or Rhow_OOS or Apig_at_min or Apig_at_max or !(Valid_PE) ? NaN : floor(unc_chl * 100))</expression>
+          <description>Chlorophyll-a uncertainty</description>
+          <type>uint16</type>
+          <unit>mg m^-3</unit>
+          <noDataValue>65535</noDataValue>
+        </targetBand>
+      </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="CHL_uncertainty"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_chl_uncertainty}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="TSM_uncertainty">
+    <operator>BandMaths</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters>
+      <targetBands>
+        <targetBand>
+          <name>TSM</name>
+          <expression>(unc_tsm == 0 or Rtosa_OOS or Rtosa_OOR or Rhow_OOR or Cloud_risk or Rhow_OOS or Bpart_at_min or Bwit_at_min or Bpart_at_max or Bwit_at_max or !(Valid_PE) ? NaN : floor(unc_tsm * 100))</expression>
+          <description>Total Suspended Matter uncertainty</description>
+          <type>uint16</type>
+          <unit>g m^-3</unit>
+          <noDataValue>65535</noDataValue>
+        </targetBand>
+      </targetBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="TSM_uncertainty"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_tsm_uncertainty}</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+</graph>

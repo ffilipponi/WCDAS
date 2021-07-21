@@ -1,0 +1,8 @@
+TSM_fac=1.06
+TSM_exp=0.942
+CHL_fac=21.0
+CHL_exp=1.04
+A_T_red=228.1
+C_T_red=0.1641
+A_T_nir=3078.9
+C_T_nir=0.2112

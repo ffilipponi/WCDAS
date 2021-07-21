@@ -1,0 +1,64 @@
+<graph id="RiverColor_S2resampling_region_10m">
+  <version>1.0</version>
+  <!-- 
+    <root xmlns:copyright="http://www.w3.org/1999/xhtml">
+      <metadata>
+        <author name="Federico Filipponi" />
+        <author contact="federico.filipponi@isprambiente.it" />
+        <copyright name="CC BY-SA" />
+        <license type="GPL" />
+        <license version="3" />
+      </metadata>
+    </root>
+  -->
+  <!-- usage example: 
+    /opt/snap/bin/gpt RiverColor_S2resampling_region_10m.xml -Pregion="0,0,10980,10980" -Pinput=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503.SAFE -Poutput=/media/workspace/S2A_MSIL1C_20171120T101321_N0206_R022_T32TQQ_20171120T122503_10m.dim
+  -->
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input}</file>
+    </parameters>
+  </node>
+  <node id="Resample">
+    <operator>S2Resampling</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <resolution>10</resolution>
+      <upsampling>Nearest</upsampling>
+      <downsampling>Mean</downsampling>
+      <flagDownsampling>FlagOr</flagDownsampling>
+      <resampleOnPyramidLevels>false</resampleOnPyramidLevels>
+    </parameters>
+  </node>
+  <node id="Subset">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Resample"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <region>${region}</region>
+      <geoRegion/>
+      <subSamplingX>1</subSamplingX>
+      <subSamplingY>1</subSamplingY>
+      <fullSwath>false</fullSwath>
+      <tiePointGridNames/>
+      <copyMetadata>true</copyMetadata>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Subset"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output}</file>
+      <!-- formatName>GeoTIFF-BigTIFF</formatName -->
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+</graph>
